@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 from selenium import webdriver
 from time import sleep
+import random
 
 bot = telebot.TeleBot("5246210066:AAEQ78jN4rUPaA0UkqYgxLIYvHokiyHitls", parse_mode=None)
 
@@ -105,6 +106,7 @@ def otvet(call):
             driver.get(anekdot)
             sleep(3)
             joke = driver.find_elements_by_class_name('text')
+            random.shuffle(joke)
             for i in range(len(joke)):
                 msg = joke[i].text
                 bot.send_message(call.message.chat.id, msg)
@@ -116,6 +118,7 @@ def otvet(call):
             driver.get(video)
             sleep(3)
             videos = driver.find_elements_by_id('video-title')
+            
             for i in range(len(videos)):
                 bot.send_message(call.message.chat.id, videos[i].get_attribute('href'))
                 if i == 4:
